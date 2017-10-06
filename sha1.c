@@ -195,7 +195,7 @@ void sha1_update(struct sha1_ctx *ctx, unsigned char *data, int len)
 	ctx->sz += len;
 
 	/* process partial buffer if there's enough data to make a block */
-	if (index && len >= to_fill) {
+	if (index && (unsigned int) len >= to_fill) {
 		memcpy(ctx->buf + index, data, to_fill);
 		sha1_do_chunk(ctx->buf, ctx->h);
 		len -= to_fill;

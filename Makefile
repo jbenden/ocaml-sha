@@ -1,4 +1,4 @@
-CFLAGS = -Wall -O3 -funroll-loops -I/usr/include
+CFLAGS = -Wall -Wextra -Werror -O3 -funroll-loops -I/usr/include
 OCAMLFIND = ocamlfind
 OCAMLC = $(OCAMLFIND) ocamlc -safe-string
 OCAMLOPT = $(OCAMLFIND) ocamlopt -safe-string
@@ -38,14 +38,14 @@ hash_test: hash.cma hash_test.ml
 md5sum$(EXE): hash.cma cksum.ml
 	$(OCAMLC) -o $@ -custom -cclib -L. hash.cma cksum.ml
 
-sha1sum$(EXE): hash.cma cksum.ml
-	ln -f $< $@
+sha1sum$(EXE): md5sum$(EXE) hash.cma cksum.ml
+	ln -f md5sum$(EXE) $@
 
-sha256sum$(EXE): sha1sum$(EXE)
-	ln -f $< $@
+sha256sum$(EXE): md5sum$(EXE)
+	ln -f md5sum$(EXE) $@
 
-sha512sum$(EXE): sha1sum$(EXE)
-	ln -f $< $@
+sha512sum$(EXE): md5sum$(EXE)
+	ln -f md5sum$(EXE) $@
 
 hash.cma: $(allbytes)
 	$(OCAMLMKLIB) -o hash $(allbytes)

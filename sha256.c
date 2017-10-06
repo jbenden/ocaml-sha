@@ -145,7 +145,7 @@ void sha256_update(struct sha256_ctx *ctx, unsigned char *data, int len)
 	ctx->sz += len;
 
 	/* process partial buffer if there's enough data to make a block */
-	if (index && len >= to_fill) {
+	if (index && (unsigned int) len >= to_fill) {
 		memcpy(ctx->buf + index, data, to_fill);
 		sha256_do_chunk(ctx->buf, ctx->h);
 		len -= to_fill;

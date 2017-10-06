@@ -23,6 +23,7 @@
 #include <caml/bigarray.h>
 #include <caml/threads.h>
 
+#include <stdint.h>
 #include "md5.h"
 
 #define GET_CTX_STRUCT(a) ((struct MD5Context *) a)
@@ -30,6 +31,8 @@
 CAMLprim value stub_md5_init(value unit)
 {
 	value ctx;
+
+	(void) unit;
 
 	ctx = caml_alloc_small(sizeof(struct MD5Context), Abstract_tag);
 	caml_MD5Init(GET_CTX_STRUCT(ctx));
@@ -67,7 +70,7 @@ CAMLprim value stub_md5_finalize(value ctx)
 	value result;
 
 	result = caml_alloc_string(16);
-	caml_MD5Final(Bp_val(result), GET_CTX_STRUCT(ctx));
+	caml_MD5Final((unsigned char *) Bp_val(result), GET_CTX_STRUCT(ctx));
 
 	CAMLreturn(result);
 }

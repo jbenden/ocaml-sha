@@ -161,11 +161,11 @@ void sha512_update(struct sha512_ctx *ctx, unsigned char *data, int len)
 	to_fill = 128 - index;
 
 	ctx->sz[0] += len;
-	if (ctx->sz[0] < len)
+	if (ctx->sz[0] < (unsigned int) len)
 		ctx->sz[1]++;
 
 	/* process partial buffer if there's enough data to make a block */
-	if (index && len >= to_fill) {
+	if (index && (unsigned int) len >= to_fill) {
 		memcpy(ctx->buf + index, data, to_fill);
 		sha512_do_chunk(ctx->buf, ctx->h);
 		len -= to_fill;
