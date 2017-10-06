@@ -1,0 +1,7 @@
+(library
+  ((name sha1dc)
+   (wrapped false)
+   (c_flags (-Wall -O3 -funroll-loops))
+   (c_names (sha1 ubc_check))))
+
+(jbuild_version 1)

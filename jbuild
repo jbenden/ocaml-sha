@@ -2,8 +2,9 @@
   ((name sha)
    (public_name sha)
    (modules (hash))
+   (libraries (sha1dc))
    (c_flags (-Wall -O3 -funroll-loops))
-   (c_names (md5_stubs sha1_stubs sha1 sha256_stubs sha256 sha512_stubs sha512))))
+   (c_names (md5_stubs sha1_stubs sha1dc_stubs sha1 sha256_stubs sha256 sha512_stubs sha512))))
 
 (executables
     ((names (cksum))
