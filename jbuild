@@ -1,0 +1,31 @@
+(library
+  ((name sha)
+   (public_name sha)
+   (modules (hash))
+   (c_flags (-Wall -O3 -funroll-loops))
+   (c_names (md5_stubs sha1_stubs sha1 sha256_stubs sha256 sha512_stubs sha512))))
+
+(executables
+    ((names (cksum))
+     (modules (cksum))
+     (libraries (sha))
+     (flags (:standard -w +A-27-48))))
+
+(executables
+    ((names (hash_test))
+     (public_names (-))
+     (modules (hash_test))
+     (libraries (oUnit sha))
+     (flags (:standard -w +A-27-48))))
+
+(alias
+  ((name runtest)
+   (deps (hash_test.exe))
+   (action (run ${<}))))
+
+(install
+  ((section bin)
+   (package sha)
+   (files ((cksum.exe as cksum)))))
+
+(jbuild_version 1)

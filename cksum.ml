@@ -14,7 +14,7 @@
  *)
 
 open Printf
-open Hash
+open Sha.Hash
 
 let printfct get_digest file =
 	let digest = get_digest file in
